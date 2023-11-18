@@ -3,14 +3,11 @@ use std::io::{self, Write};
 pub fn input<T: std::str::FromStr>(prompt: &str) -> T {
     print!("{}", prompt);
     let _ = io::stdout().flush();
-    let ret: T = {
-        let mut buf: String = String::new();
-        if let Ok(_) = io::stdin().read_line(&mut buf) {
-            let buf = String::from(buf.trim());
-            if let Ok(i) = buf.parse::<T>() { Some(i) } else { None }}
-        else { None }
-    }.expect("invalid input type");
-    return ret;
+    let mut buf: String = String::new();
+    io::stdin().read_line(&mut buf).expect("input error");
+    let buf = String::from(buf.trim());
+    let ret = if let Ok(i) = buf.parse::<T>() { Some(i) } else { None };
+    return ret.expect("invalid type");
 }
 
 pub fn interest() {
