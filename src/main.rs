@@ -1,9 +1,9 @@
 mod area_circumference;
 mod helloworld;
-mod interest;
+mod taking_inp;
 
 fn main() {
     area_circumference::area_circumference();
     helloworld::helloworld();
-    interest::interest();
+    taking_inp::interest();
 }
