@@ -1,7 +1,10 @@
 use super::helperfn::get_filename;
 use std::io::{self, Write};
 
-pub fn input<T: std::str::FromStr>(prompt: &str) -> T {
+pub fn input<T>(prompt: &str) -> T
+where
+    T: std::str::FromStr,
+{
     print!("{}", prompt);
     let _ = io::stdout().flush();
     let mut buf: String = String::new();
