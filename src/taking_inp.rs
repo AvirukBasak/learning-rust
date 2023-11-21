@@ -10,7 +10,7 @@ pub fn input<T: std::str::FromStr>(prompt: &str) -> T {
     return ret.expect("invalid type");
 }
 
-pub fn interest() {
+pub fn test() {
     let ip: i32 = input("enter a num: ");
     println!("{}", ip);
     let ip: String = input("enter a str: ");

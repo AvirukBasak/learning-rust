@@ -1,9 +1,11 @@
-mod area_circumference;
-mod helloworld;
-mod taking_inp;
+pub mod area_circumference;
+pub mod helloworld;
+pub mod taking_inp;
+pub mod interest;
 
 fn main() {
     area_circumference::area_circumference();
     helloworld::helloworld();
-    taking_inp::interest();
+    taking_inp::test();
+    interest::interest();
 }
