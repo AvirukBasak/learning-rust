@@ -13,4 +13,5 @@ fn main() {
     interest::interest();
     cyl_vol::cyl_vol();
     string_concat::string_concat();
+    division::division();
 }
