@@ -6,16 +6,13 @@ where
     T: std::str::FromStr,
 {
     print!("{}", prompt);
-    let _ = io::stdout().flush();
+    io::stdout().flush().expect("prompt output error");
     let mut buf: String = String::new();
     io::stdin().read_line(&mut buf).expect("input error");
-    let buf = String::from(buf.trim());
-    let ret = if let Ok(i) = buf.parse::<T>() {
-        Some(i)
-    } else {
-        None
-    };
-    return ret.expect("invalid type");
+    match buf.trim().to_owned().parse::<T>() {
+        Ok(i) => i,
+        Err(_) => panic!("invalid input"),
+    }
 }
 
 pub fn test() {
