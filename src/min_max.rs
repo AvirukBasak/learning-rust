@@ -10,8 +10,11 @@ fn for_numbers() {
 
 fn for_vectors() {
     let v1: Vec<f32> = vec![1.3, 2.0, 3.4, 51.0, 3.3, -4.0];
-    let min = v1.iter().fold(v1[0], |acc, &x| acc.min(x));
-    let max = v1.iter().fold(v1[0], |acc, &x| acc.max(x));
+    let (max, min) = v1
+        .iter()
+        .fold((v1[0], v1[0]),
+            |acc, &x| (acc.0.max(x), acc.1.min(x))
+        );
     println!("{}: for_vectors: max = {max}, min = {min}", get_filename(file!()));
 }
 
