@@ -1,6 +1,8 @@
 use super::helperfn::get_filename;
 use super::helperfn::input;
+use memoize::memoize;
 
+#[memoize]
 fn min_denom(dens: &Vec<i32>, sum: i32) -> i32 {
     if sum == 0 {
         return 0;
