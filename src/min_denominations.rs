@@ -1,31 +1,26 @@
 use super::helperfn::get_filename;
 use super::helperfn::input;
 
-/// Valid denominations are as follows
-/// 500, 200, 100, 50, 20, 10, 5, 2, 1
-fn min_denom(sum: i32) -> i32 {
-    match sum {
-        ..=0 => 0,
-        500 | 200 | 100 | 50 | 20 | 10 | 5 | 2 | 1 => 1,
-        _ => {
-            1 + vec![
-                min_denom(sum - 500),
-                min_denom(sum - 200),
-                min_denom(sum - 100),
-                min_denom(sum - 50),
-                min_denom(sum - 20),
-                min_denom(sum - 10),
-                min_denom(sum - 5),
-                min_denom(sum - 2),
-                min_denom(sum - 1),
-            ]
-            .iter()
-            .fold(std::i32::MAX, |acc, &x| acc.min(x))
+fn min_denom(dens: &Vec<i32>, sum: i32) -> i32 {
+    if sum == 0 {
+        return 0;
+    }
+    let mut res = std::i32::MAX;
+    for den in dens.iter() {
+        if den > &sum {
+            continue;
+        }
+        let ret = res.min(1 + min_denom(dens, sum - den));
+        if ret != std::i32::MAX {
+            res = ret;
         }
     }
+    return res;
 }
 
 pub fn min_denominations() {
     let sum: i32 = input(&format!("{}: Enter sum: ", get_filename(file!())));
-    println!("{}: Result = {}", get_filename(file!()), min_denom(sum));
+    let denominations = vec![25, 10, 5];
+    let result = min_denom(&denominations, sum);
+    println!("{}: Result = {result}", get_filename(file!()));
 }
