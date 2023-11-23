@@ -1,5 +1,5 @@
-use super::helperfn::input;
 use super::helperfn::get_filename;
+use super::helperfn::input;
 
 pub fn division() {
     let x: i32 = input(&format!("{}: Enter 1st integer: ", get_filename(file!())));
