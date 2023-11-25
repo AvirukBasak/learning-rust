@@ -5,8 +5,8 @@ pub struct Rectangle {
 }
 
 impl Rectangle {
-    pub fn new(l: f32, b: f32) -> Rectangle {
-        Rectangle { l, b }
+    pub fn new(l: f32, b: f32) -> Self {
+        Self { l, b }
     }
     pub fn get_l(self: &Self) -> f32 {
         self.l
