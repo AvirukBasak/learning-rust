@@ -8,6 +8,7 @@ pub mod min_denominations;
 pub mod min_max;
 pub mod string_concat;
 pub mod taking_inp;
+pub mod oop;
 
 fn main() {
     area_circumference::area_circumference();
@@ -19,4 +20,5 @@ fn main() {
     division::division();
     min_max::min_max();
     min_denominations::min_denominations();
+    oop::main();
 }
