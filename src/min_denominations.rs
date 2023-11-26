@@ -9,8 +9,8 @@ fn min_denom(dens: *const Vec<i32>, sum: i32) -> i32 {
     }
     let mut res = std::i32::MAX;
     unsafe {
-        for den in (*dens).iter() {
-            if den > &sum {
+        for &den in (*dens).iter() {
+            if den > sum {
                 continue;
             }
             let ret = min_denom(dens, sum - den);
