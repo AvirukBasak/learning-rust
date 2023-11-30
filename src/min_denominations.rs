@@ -26,6 +26,6 @@ pub fn min_denominations() {
     let sum: i32 = input(&format!("{}: Enter sum: ", get_filename(file!())));
     let denominations = vec![500, 200, 100, 50, 20, 10, 5, 2, 1];
     // let denominations = vec![25, 10, 5];
-    let result = min_denom(&*&denominations, sum);
+    let result = min_denom(&denominations, sum);
     println!("{}: Result = {result}", get_filename(file!()));
 }
