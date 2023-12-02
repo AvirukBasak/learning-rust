@@ -2,9 +2,9 @@ use super::helperfn::get_filename;
 
 fn mkconcat1(s1: &str, s2: &str) -> String {
     let mut str = s1.to_owned();
-    str.push_str(" ");
+    str.push(' ');
     str.push_str(s2);
-    return str;
+    str
 }
 
 fn mkconcat2(s1: &str, s2: &str) -> String {

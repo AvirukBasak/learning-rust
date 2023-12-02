@@ -8,18 +8,19 @@ fn min_denom(dens: *const Vec<i32>, sum: i32) -> i32 {
         return 0;
     }
     let mut res = std::i32::MAX;
-    unsafe {
-        for &den in (*dens).iter() {
-            if den > sum {
-                continue;
-            }
-            let ret = min_denom(dens, sum - den);
-            if ret != std::i32::MAX {
-                res = res.min(1 + min_denom(dens, sum - den));
-            }
+    let dens = unsafe {
+        dens.as_ref().unwrap()
+    };
+    for &den in dens.iter() {
+        if den > sum {
+            continue;
+        }
+        let ret = min_denom(dens, sum - den);
+        if ret != std::i32::MAX {
+            res = res.min(1 + min_denom(dens, sum - den));
         }
     }
-    return res;
+    res
 }
 
 pub fn min_denominations() {
