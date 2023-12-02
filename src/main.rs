@@ -1,6 +1,7 @@
 pub mod area_circumference;
 pub mod cyl_vol;
 pub mod division;
+pub mod dll;
 pub mod helloworld;
 pub mod helperfn;
 pub mod interest;
@@ -21,4 +22,5 @@ fn main() {
     min_max::min_max();
     min_denominations::min_denominations();
     oop::main();
+    dll::main();
 }
