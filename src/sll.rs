@@ -1,77 +1,76 @@
-use std::{borrow::BorrowMut, rc::Rc};
-
-struct List<T>
-where
-    T: std::fmt::Display + std::fmt::Debug,
-{
-    front: Option<Rc<ListNode<T>>>,
-    back: Option<Rc<ListNode<T>>>,
-    length: i64,
+// Define the node of the linked list
+struct Node<T> {
+    data: T,
+    next: Option<Box<Node<T>>>,
 }
 
-struct ListNode<T>
-where
-    T: std::fmt::Display + std::fmt::Debug,
-{
-    val: T,
-    next: Option<Rc<ListNode<T>>>,
+// Define the linked list
+pub struct LinkedList<T> {
+    head: Option<Box<Node<T>>>,
 }
 
-impl<T> List<T>
-where
-    T: std::fmt::Display + std::fmt::Debug,
-{
-    fn new() -> Self {
-        List {
-            front: None,
-            back: None,
-            length: 0,
+impl<T> LinkedList<T> {
+    // Create a new empty linked list
+    pub fn new() -> Self {
+        LinkedList { head: None }
+    }
+
+    // Add a new element to the front of the linked list
+    pub fn push(&mut self, data: T) {
+        let new_node = Box::new(Node {
+            data,
+            next: self.head.take(),
+        });
+
+        self.head = Some(new_node);
+    }
+
+    // Insert a new element at the end of the linked list
+    pub fn append(&mut self, data: T) {
+        let new_node = Box::new(Node { data, next: None });
+
+        let mut current = &mut self.head;
+        while let Some(node) = current {
+            if node.next.is_none() {
+                node.next = Some(new_node);
+                return;
+            }
+            current = &mut node.next;
         }
+
+        // If the list is empty, set the new node as the head
+        self.head = Some(new_node);
     }
 
-    fn push(&mut self, val: T) {
-        if self.length == 0 {
-            self.front = Some(ListNode::new_ptr(val));
-            self.back = Some(self.front.as_mut().unwrap().clone());
-            return;
-        }
-        self.back.clone().unwrap().clone().next = Some(ListNode::new_ptr(val));
+    // Pop the element from the front of the linked list, if any
+    pub fn pop(&mut self) -> Option<T> {
+        self.head.take().map(|node| {
+            self.head = node.next;
+            node.data
+        })
     }
 
-    fn show(&self) {
-        let mut ptr = &self.front;
-        while ptr.is_some() {
-            println!("{}", ptr.as_ref().unwrap().val);
-            ptr = &ptr.as_ref().unwrap().next;
-        }
-    }
-}
-
-impl<T> ListNode<T>
-where
-    T: std::fmt::Display + std::fmt::Debug,
-{
-    fn new(val: T, next: Option<Rc<ListNode<T>>>) -> Self {
-        ListNode { val, next }
-    }
-
-    fn pointered(node: ListNode<T>) -> Rc<ListNode<T>> {
-        Rc::new(node)
-    }
-
-    fn new_ptr(val: T) -> Rc<ListNode<T>> {
-        ListNode::pointered(ListNode::new(val, None))
-    }
-
-    fn append_after(&mut self, node: Option<Rc<ListNode<T>>>) {
-        self.next = node;
+    // Get a reference to the head of the linked list
+    pub fn peek(&self) -> Option<&T> {
+        self.head.as_ref().map(|node| &node.data)
     }
 }
 
-pub fn main() {
-    let mut ls = List::new();
-    ls.push(64);
-    ls.push(95);
-    ls.push(22);
-    ls.show();
+pub fn sll() {
+    let mut list = LinkedList::new();
+
+    list.push(1);
+    list.push(2);
+    list.push(3);
+
+    println!("Peek: {:?}", list.peek()); // Output: Some(3)
+
+    list.append(4);
+    println!("Peek: {:?}", list.peek()); // Output: Some(3) - head remains unchanged
+
+    println!("Pop: {:?}", list.pop());   // Output: Some(3)
+    println!("Pop: {:?}", list.pop());   // Output: Some(2)
+    println!("Pop: {:?}", list.pop());   // Output: Some(1)
+    println!("Pop: {:?}", list.pop());   // Output: Some(4)
+    println!("Pop: {:?}", list.pop());   // Output: None
 }
